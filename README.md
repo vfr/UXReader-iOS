@@ -34,6 +34,9 @@ internationalized.
 Please see the sample Reader project on how to use the UXReader framework
 (class and method documentation is still on the todo list).
 
+NB. Download [libpdfium.a](https://github.com/vfr/UXReader-iOS/releases/download/0.1.0/libpdfium.a)
+and copy it into the PDFium directory in the UXReader sub-directory before building in Xcode.
+
 ### Contact Info
 
 Website: [http://www.vfr.org/](http://www.vfr.org/)
