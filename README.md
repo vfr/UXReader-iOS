@@ -31,11 +31,10 @@ are generated in code with graphics resources bundled in the framework It runs
 on iPad, iPhone and iPod touch with iOS 9.0 and up and is ready to be fully
 internationalized.
 
-Please see the sample Reader project on how to use the UXReader framework
-(class and method documentation is still on the todo list).
-
-NB. Download [libpdfium.a](https://github.com/vfr/UXReader-iOS/releases/download/0.1.0/libpdfium.a)
-and copy it into the PDFium directory in the UXReader sub-directory before building in Xcode.
+Please see the sample Reader project on how to use the UXReader framework (class
+and method documentation is still on the todo list). You will also need to download
+[libpdfium.a](https://github.com/vfr/UXReader-iOS/releases/download/0.1.0/libpdfium.a)
+and copy it into the PDFium directory inside the UXReader sub-directory before building.
 
 ### Contact Info
 
@@ -51,8 +50,8 @@ This code has been made available under the MIT License.
 
 ### Screens
 
-![iPad1](http://i.imgur.com/ucaBYZg.png?1)
-![iPad2](http://i.imgur.com/xCdcvLR.png?1)
-![iPad3](http://i.imgur.com/8FGW03U.png?1)
-![iPad4](http://i.imgur.com/T2D3TlT.png?2)
-![iPad5](http://i.imgur.com/yr6IJM0.png?1)
+![iPad1](http://i.imgur.com/ucaBYZg.png)
+![iPad2](http://i.imgur.com/xCdcvLR.png)
+![iPad3](http://i.imgur.com/8FGW03U.png)
+![iPad4](http://i.imgur.com/T2D3TlT.png)
+![iPad5](http://i.imgur.com/yr6IJM0.png)
