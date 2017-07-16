@@ -1,0 +1,63 @@
+//
+//	Localizable.strings - en
+//	UXReader Framework v0.1
+//
+//	Copyright © 2017 Julius Oklamcak. All rights reserved.
+//
+
+"Close"							=	"Close";
+"Retry"							=	"Retry";
+
+"Any"							=	"Any";
+"Case"							=	"Case";
+"Word"							=	"Word";
+
+"Copy"							=	"Copy";
+"Modify"						=	"Modify";
+"Print"							=	"Print";
+
+"%i of %i"						=	"%1$i of %2$i";
+"%i of %i on %i"				=	"%1$i of %2$i (on %3$i pages)";
+
+"SearchDocument"				=	"Search Document";
+"SearchNotFound"				=	"Not found";
+"SearchIntCount"				=	"%i";
+
+"Document Password"				=	"Document Password";
+"Enter document password"		=	"Enter document password";
+"Document Information"			=	"Document Information";
+"Document Open Error"			=	"Document Open Error";
+
+"DocumentError0"				=	"No error.";
+"DocumentError1"				=	"Unknown error.";
+"DocumentError2"				=	"File not found or could not be opened.";
+"DocumentError3"				=	"File not in PDF format or corrupted.";
+"DocumentError4"				=	"Password required or incorrect password.";
+"DocumentError5"				=	"Unsupported security scheme.";
+"DocumentError6"				=	"Page not found or content error.";
+
+"NoDocumentOutline"				=	"No Table of Contents";
+
+"PDFVersion"					=	"PDF Version";
+"Permissions"					=	"Permissions";
+
+"Title"							=	"Title";
+"Author"						=	"Author";
+"Subject"						=	"Subject";
+"Keywords"						=	"Keywords";
+"Creator"						=	"Creator";
+"Producer"						=	"Producer";
+"CreationDate"					=	"Creation Date";
+"ModDate"						=	"Modified Date";
+
+"Reader Preferences"			=	"Reader Preferences";
+"Document Information"			=	"Document Information";
+
+"SinglePageScrollH"				=	"Single Page Horizontal Scroll";
+"SinglePageScrollV"				=	"Single Page Vertical Scroll";
+"DoublePageScrollH"				=	"Double Page Horizontal Scroll";
+"DoublePageScrollV"				=	"Double Page Vertical Scroll";
+
+"CaseSensitiveMatch"			=	"Case Sensitive Match";
+"CaseInsensitiveMatch"			=	"Case Insensitive Match";
+"WholeWordMatch"				=	"Whole Word Match";
