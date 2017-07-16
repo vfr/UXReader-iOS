@@ -27,14 +27,15 @@ on the open-source [PDFium](https://pdfium.googlesource.com/pdfium/) library.
 
 The code is universal, written in Objective-C++ (works with Swift or plain
 Objective-C) and does not require storyboards or any NIBs (as all UI elements
-are generated in code with graphics resources bundled in the framework It runs
-on iPad, iPhone and iPod touch with iOS 9.0 and up and is ready to be fully
-internationalized.
+are generated in code with graphics resources bundled in the framework). It
+runs on iPad, iPhone and iPod touch with iOS 9.0 and up and is ready to be
+fully internationalized.
 
 Please see the sample Reader project on how to use the UXReader framework (class
 and method documentation is still on the todo list). You will also need to download
 [libpdfium.a](https://github.com/vfr/UXReader-iOS/releases/download/0.1.0/libpdfium.a)
-and copy it into the PDFium directory inside the UXReader sub-directory before building.
+and copy it into the PDFium directory inside the UXReader project sub-directory before
+building.
 
 ### Contact Info
 
