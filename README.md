@@ -26,7 +26,7 @@ on the open-source [PDFium](https://pdfium.googlesource.com/pdfium/) library.
 ### Notes
 
 The code is universal, written in Objective-C++ (works with Swift or plain
-Objective-C) and does not require storyboards or any NIBs (as all UI elements
+Objective-C) and does not require storyboards or NIBs (as all UI elements
 are generated in code with graphics resources bundled in the framework). It
 runs on iPad, iPhone and iPod touch with iOS 9.0 and up and is ready to be
 fully internationalized.
