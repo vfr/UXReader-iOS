@@ -1,4 +1,4 @@
-UXReader
+UXReader PDF Framework for iOS License
 
 Copyright © 2017 Julius Oklamcak. All rights reserved.
 
@@ -19,13 +19,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
--=-=-=-=-=-=-=-=-
+---
 
-PDFium
+PDFium License
 
 https://pdfium.googlesource.com/pdfium/+/master/LICENSE
 
--=-=-=-=-=-=-=-=-
+---
 
 iOS, iPad, iPhone, iPod touch are registered trademarks of Apple Inc.
 All other trademarks and service marks are the properties of their

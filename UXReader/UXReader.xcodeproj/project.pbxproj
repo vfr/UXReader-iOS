@@ -145,6 +145,7 @@
 		451C82E41E6C2E5D00E6EB1C /* UXReaderPageToolbar.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = UXReaderPageToolbar.mm; path = UXReader/UXReaderPageToolbar.mm; sourceTree = "<group>"; };
 		451ECD641E6DC89A0038E89D /* UXReaderPageImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UXReaderPageImageView.h; path = UXReader/UXReaderPageImageView.h; sourceTree = "<group>"; };
 		451ECD651E6DC89A0038E89D /* UXReaderPageImageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = UXReaderPageImageView.mm; path = UXReader/UXReaderPageImageView.mm; sourceTree = "<group>"; };
+		4524BF981F1D5B1900E12836 /* HOWTO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = HOWTO.md; path = ../HOWTO.md; sourceTree = "<group>"; };
 		452538CF1E8F59E2009D3F03 /* UXReaderThumbCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UXReaderThumbCell.h; path = UXReader/UXReaderThumbCell.h; sourceTree = "<group>"; };
 		452538D01E8F59E2009D3F03 /* UXReaderThumbCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = UXReaderThumbCell.mm; path = UXReader/UXReaderThumbCell.mm; sourceTree = "<group>"; };
 		452B147D1E8AECEF00C61DEE /* UXReaderOutlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UXReaderOutlineView.h; path = UXReader/UXReaderOutlineView.h; sourceTree = "<group>"; };
@@ -277,6 +278,7 @@
 		453DED5E1E68E7E700DEE191 /* Miscellaneous */ = {
 			isa = PBXGroup;
 			children = (
+				4524BF981F1D5B1900E12836 /* HOWTO.md */,
 				4535734D1F1BC71F00093305 /* README.md */,
 				4535734B1F1BC71300093305 /* LICENSE.md */,
 				453DED611E68E98100DEE191 /* Todo.txt */,

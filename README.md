@@ -12,7 +12,7 @@ on the open-source [PDFium](https://pdfium.googlesource.com/pdfium/) library.
 * Single page horizontal and vertical scrolling.
 * Double page horizontal and vertical scrolling.
 * Right to Left and Left to Right UI and document presentation.
-* Table of Contents (aka PDF outline) extraction.
+* Table of Contents (aka PDF outline or bookmark) extraction.
 * Page text extraction (by co-ordinates or character index).
 * Page links (goto page and URL).
 * Page labels ("Cover", "i", "ii", etc).
@@ -26,16 +26,14 @@ on the open-source [PDFium](https://pdfium.googlesource.com/pdfium/) library.
 ### Notes
 
 The code is universal, written in Objective-C++ (works with Swift or plain
-Objective-C) and does not require storyboards or NIBs (as all UI elements
-are generated in code with graphics resources bundled in the framework). It
-runs on iPad, iPhone and iPod touch with iOS 9.0 and up and is ready to be
-fully internationalized.
+Objective-C) and does not require storyboards or NIBs (all UI elements are
+generated in code with graphics resources bundled in the framework). It runs
+on iPad, iPhone and iPod touch with iOS 9.0 and up and is ready to be fully
+internationalized.
 
-Please see the sample Reader project on how to use the UXReader framework (class
-and method documentation is still on the todo list). You will also need to download
-[libpdfium.a](https://github.com/vfr/UXReader-iOS/releases/download/0.1.0/libpdfium.a)
-and copy it into the PDFium directory inside the UXReader project sub-directory before
-building.
+Please see the [HOWTO](https://github.com/vfr/UXReader-iOS/blob/master/HOWTO.md) for
+getting started and the sample Reader project on how to use the UXReader framework
+(class and method documentation is still on the todo list).
 
 ### Contact Info
 
