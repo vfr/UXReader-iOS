@@ -7,6 +7,7 @@
 
 #import "UXReaderFramework.h"
 #import "UXReaderThumbCache.h"
+#import "UXReaderSimulator.h"
 
 #import "fpdfview.h"
 
@@ -204,6 +205,18 @@ static const char *const UXReaderFrameworkWorkQueue = "UXReaderFramework-WorkQue
 
 #pragma mark - UXReaderFramework instance methods
 
+#if TARGET_IPHONE_SIMULATOR
+- (instancetype)init
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (void)dealloc
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+}
+#else
 - (instancetype)init
 {
 	//NSLog(@"%s", __FUNCTION__);
@@ -234,6 +247,7 @@ static const char *const UXReaderFrameworkWorkQueue = "UXReaderFramework-WorkQue
 
 	FPDF_DestroyLibrary();
 }
+#endif
 
 - (void)dispatch_sync_on_work_queue:(nonnull dispatch_block_t)block
 {
