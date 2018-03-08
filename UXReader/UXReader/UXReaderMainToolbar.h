@@ -35,6 +35,7 @@
 - (void)stuffButtonWhat:(NSUInteger)index;
 
 - (void)setAllowShare:(BOOL)allow;
+- (void)setAllowClose:(BOOL)allow;
 
 - (void)clearSearchText;
 - (void)showSearchBusy:(BOOL)show;

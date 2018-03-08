@@ -26,7 +26,8 @@ typedef NS_OPTIONS(NSUInteger, UXReaderPermissions)
 	UXReaderPermissionAllowEmail = (1 << 1),
 	UXReaderPermissionAllowPrint = (1 << 2),
 	UXReaderPermissionAllowCopy = (1 << 3),
-	UXReaderPermissionAllowSave = (1 << 4)
+    UXReaderPermissionAllowSave = (1 << 4),
+	UXReaderPermissionAllowClose = (1 << 5)
 };
 
 @protocol UXReaderViewControllerDelegate <NSObject>
