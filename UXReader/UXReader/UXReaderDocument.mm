@@ -15,12 +15,243 @@
 #import "UXReaderAction.h"
 #import "UXReaderDestination.h"
 #import "UXReaderOutline.h"
+#import "UXReaderSimulator.h"
 
 #import "fpdfview.h"
 #import "fpdf_text.h"
 #import "fpdf_doc.h"
 
 #import <CommonCrypto/CommonDigest.h>
+
+#if TARGET_IPHONE_SIMULATOR
+
+@interface UXReaderDocument () <UXReaderDocumentDataSource>
+
+@end
+
+@implementation UXReaderDocument
+
+- (nullable instancetype)initWithURL:(nonnull NSURL *)URL
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (nullable instancetype)initWithData:(nonnull NSData *)data
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (nullable instancetype)initWithSource:(nonnull id <UXReaderDocumentDataSource>)source
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (void)close
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+}
+
+- (nullable NSURL *)URL
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (nullable NSData *)data
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (void)setUUID:(nonnull NSUUID *)UUID
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+}
+- (nonnull NSUUID *)UUID
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (void)setTitle:(nonnull NSString *)text
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+}
+- (nullable NSString *)title
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (void)setShowRTL:(BOOL)RTL
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+}
+- (BOOL)showRTL
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return NO;
+}
+
+- (void)setHighlightLinks:(BOOL)RTL
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+}
+- (BOOL)highlightLinks
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return NO;
+}
+
+- (void)setRenderTile:(nullable id <UXReaderRenderTileInContext>)renderTile
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+}
+- (nullable id <UXReaderRenderTileInContext>)renderTile
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (void)setUseNativeRendering
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+}
+
+- (uint32_t)permissions
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return 0;
+}
+- (nullable NSString *)fileVersion
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (BOOL)isSameDocument:(nonnull UXReaderDocument *)document
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return NO;
+}
+
+- (void)openWithPassword:(nullable NSString *)password
+              completion:(nonnull void (^)(NSError *_Nullable error))handler
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+}
+- (BOOL)isOpen
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return NO;
+}
+
+- (nullable void *)pdfDocumentCG
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return NULL;
+}
+- (nullable void *)pdfDocumentFP
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return NULL;
+}
+
+- (NSUInteger)pageCount
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return 0;
+}
+
+- (CGSize)pageSize:(NSUInteger)page
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return CGSizeZero;
+}
+
+- (nullable UXReaderDocumentPage *)documentPage:(NSUInteger)page
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (nullable NSString *)pageLabel:(NSUInteger)page
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (BOOL)isSearching
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return NO;
+}
+- (void)cancelSearch
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+}
+- (void)beginSearch:(nonnull NSString *)text options:(UXReaderSearchOptions)options
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+}
+
+- (void)setSearchSelections:(nullable NSDictionary<NSNumber *, NSArray<UXReaderSelection *> *> *)selections
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+}
+- (nullable NSDictionary<NSNumber *, NSArray<UXReaderSelection *> *> *)searchSelections
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (void)thumbForPage:(NSUInteger)page
+                size:(CGSize)size
+           canceller:(nonnull UXReaderCanceller *)canceller
+          completion:(nonnull void (^)(UIImage *_Nonnull thumb))handler
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+}
+
+- (nullable NSDictionary<NSString *, NSString *> *)information
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (nullable NSArray<UXReaderOutline *> *)outline
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (BOOL)document:(nonnull UXReaderDocument *)document UUID:(NSUUID *__autoreleasing  _Nullable * _Nullable)uuid
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return NO;
+}
+
+- (BOOL)document:(nonnull UXReaderDocument *)document dataLength:(nonnull size_t *)length
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return NO;
+}
+
+- (BOOL)document:(nonnull UXReaderDocument *)document
+          offset:(size_t)offset
+          length:(size_t)length
+          buffer:(nonnull uint8_t *)buffer
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return NO;
+}
+
+@end
+
+#else // now comes the real implementation
 
 @interface UXReaderDocument () <UXReaderDocumentDataSource>
 
@@ -1155,3 +1386,5 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 #pragma clang diagnostic pop
 
 @end
+
+#endif // TARGET_IPHONE_SIMULATOR

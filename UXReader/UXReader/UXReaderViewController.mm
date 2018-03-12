@@ -397,7 +397,8 @@ constexpr CGFloat minimumContentOffset = 0.0;
 		{
 			[view addSubview:mainToolbar]; [mainToolbar setDelegate:self]; // UXReaderMainToolbarDelegate
 
-			[mainToolbar setAllowShare:(permissions & UXReaderPermissionAllowShare)]; // Set share button state
+            [mainToolbar setAllowShare:(permissions & UXReaderPermissionAllowShare)]; // Set share button state
+			[mainToolbar setAllowClose:(permissions & UXReaderPermissionAllowClose)]; // Set close button state
 
 			[view addConstraint:[NSLayoutConstraint constraintWithItem:mainToolbar attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
 																toItem:view attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0]];

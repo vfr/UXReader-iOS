@@ -12,11 +12,174 @@
 #import "UXReaderFramework.h"
 #import "UXReaderDestination.h"
 #import "UXReaderAction.h"
+#import "UXReaderSimulator.h"
 
 #import "fpdfview.h"
 #import "fpdf_text.h"
 #import "fpdf_edit.h"
 #import "fpdf_doc.h"
+
+#if TARGET_IPHONE_SIMULATOR
+
+@implementation UXReaderDocumentPage
+
+- (nullable instancetype)initWithDocument:(nonnull UXReaderDocument *)document page:(NSUInteger)page
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (nonnull UXReaderDocument *)document
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (nullable void *)pdfPageCG
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return NULL;
+}
+
+- (nullable void *)pdfPageFP
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return NULL;
+}
+
+- (nullable void *)textPage
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return NULL;
+}
+
+- (NSUInteger)page
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return 0;
+}
+- (NSUInteger)rotation
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return 0;
+}
+- (CGSize)pageSize
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return CGSizeZero;
+}
+
+- (CGRect)convertToPageFromViewRect:(CGRect)rect
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return CGRectZero;
+}
+- (CGPoint)convertToPageFromViewPoint:(CGPoint)point
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return CGPointZero;
+}
+- (CGRect)convertFromPageX1:(CGFloat)x1 Y1:(CGFloat)y1 X2:(CGFloat)x2 Y2:(CGFloat)y2
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return CGRectZero;
+}
+
+- (void)renderTileInContext:(nonnull CGContextRef)context
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+}
+
+- (void)thumbWithSize:(CGSize)size
+            canceller:(nonnull UXReaderCanceller *)canceller
+           completion:(nonnull void (^)(UIImage *_Nonnull thumb))handler
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+}
+
+- (void)setSearchSelections:(nullable NSArray<UXReaderSelection *> *)selections
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+}
+- (nullable NSArray<UXReaderSelection *> *)searchSelections
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (nullable UXReaderAction *)linkAction:(CGPoint)point
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+- (nullable UXReaderAction *)textAction:(CGPoint)point
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (BOOL)extractPageLinks
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return NO;
+}
+- (BOOL)extractPageURLs
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return NO;
+}
+
+- (NSUInteger)unicharCount
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return 0;
+}
+- (nullable NSString *)text
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+- (nullable NSString *)textAtIndex:(NSUInteger)index count:(NSUInteger)count
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+- (unichar)unicharAtIndex:(NSUInteger)index
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return 0;
+}
+- (CGFloat)unicharFontSizeAtIndex:(NSUInteger)index
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return 0;
+}
+- (CGRect)unicharRectangleAtIndex:(NSUInteger)index
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return CGRectZero;
+}
+
+- (NSUInteger)unicharIndexAtPoint:(CGPoint)point tolerance:(CGSize)size
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return 0;
+}
+
+- (nonnull NSArray<NSValue *> *)rectanglesForTextAtIndex:(NSUInteger)index count:(NSUInteger)count
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+
+- (nullable NSString *)textInRectangle:(CGRect)rectangle
+{
+    NOT_AVAILABLE_IN_SIMULATOR;
+    return nil;
+}
+@end
+
+#else // now comes the real implementation
 
 @implementation UXReaderDocumentPage
 {
@@ -1232,3 +1395,5 @@
 }
 
 @end
+
+#endif // TARGET_IPHONE_SIMULATOR

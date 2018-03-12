@@ -332,6 +332,14 @@
 	[shareButton setHidden:(allow ? NO : YES)];
 }
 
+- (void)setAllowClose:(BOOL)allow
+{
+    //NSLog(@"%s %i", __FUNCTION__, allow);
+
+    [closeButton setHidden:(allow ? NO : YES)];
+}
+
+
 - (void)hideAnimated
 {
 	//NSLog(@"%s", __FUNCTION__);
