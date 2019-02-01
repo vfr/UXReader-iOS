@@ -2,8 +2,8 @@
 
 #### Getting Started
 
-Since the framework depends on a single large binary library file (libpdfium.a), you should download
-the latest [UXReader-iOS](https://github.com/vfr/UXReader-iOS/releases/download/0.1.0/UXReader-iOS.zip)
+Since the framework depends on a single large binary library file (libpdfium.a), you should download the
+current [UXReader-iOS](https://github.com/vfr/UXReader-iOS/releases/download/0.1.1/UXReader-iOS.zip)
 release ZIP. Once extracted, open Reader.xcworkspace in Xcode and then build and run to a device
 (as the PDFium library does not support building for x86_64 simulator at this time).
 Then use iTunes to sync PDF files to the sample Reader app.

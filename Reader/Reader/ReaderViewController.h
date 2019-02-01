@@ -2,7 +2,7 @@
 //	ReaderViewController.h
 //	Reader v0.1
 //
-//	Copyright © 2017 Julius Oklamcak. All rights reserved.
+//	Copyright © 2017-2019 Julius Oklamcak. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

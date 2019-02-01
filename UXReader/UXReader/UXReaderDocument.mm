@@ -2,7 +2,7 @@
 //	UXReaderDocument.mm
 //	UXReader Framework v0.1
 //
-//	Copyright © 2017 Julius Oklamcak. All rights reserved.
+//	Copyright © 2017-2019 Julius Oklamcak. All rights reserved.
 //
 
 #import "UXReaderDocument.h"
@@ -136,7 +136,7 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 	{
 		[UXReaderFramework dispatch_sync_on_work_queue:
 		^{
-			FPDF_CloseDocument(pdfDocumentFP); pdfDocumentFP = nil;
+			FPDF_CloseDocument(self->pdfDocumentFP); self->pdfDocumentFP = nil;
 		}];
 	}
 
@@ -379,58 +379,58 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 
 		const char *phrase = [password UTF8String];
 
-		if ([documentURL isFileURL]) // File NSURL
+		if ([self->documentURL isFileURL]) // File NSURL
 		{
-			NSString *path = [documentURL path];
+			NSString *path = [self->documentURL path];
 
 			const char *filepath = [path UTF8String];
 
-			pdfDocumentFP = FPDF_LoadDocument(filepath, phrase);
+			self->pdfDocumentFP = FPDF_LoadDocument(filepath, phrase);
 		}
-		else if ([documentData length]) // NSData
+		else if ([self->documentData length]) // NSData
 		{
-			const void *data = [documentData bytes];
+			const void *data = [self->documentData bytes];
 
-			const int size = int([documentData length]);
+			const int size = int([self->documentData length]);
 
-			pdfDocumentFP = FPDF_LoadMemDocument(data, size, phrase);
+			self->pdfDocumentFP = FPDF_LoadMemDocument(data, size, phrase);
 		}
-		else if (dataSource != nil) // UXReaderDocumentDataSource
+		else if (self->dataSource != nil) // UXReaderDocumentDataSource
 		{
 			__autoreleasing NSUUID *uuid = nil; // Data source UUID
 
-			[dataSource document:self UUID:&uuid]; UUID = [uuid copy];
+			[self->dataSource document:self UUID:&uuid]; self->UUID = [uuid copy];
 
 			FPDF_FILEACCESS data; memset(&data, 0x00, sizeof(data));
 
-			size_t length = 0; [dataSource document:self dataLength:&length];
+			size_t length = 0; [self->dataSource document:self dataLength:&length];
 
 			data.m_FileLen = length; data.m_GetBlock = &GetDataBlock;
 
 			data.m_Param = (__bridge void *)self; // UXReaderDocument
 
-			pdfDocumentFP = FPDF_LoadCustomDocument(&data, phrase);
+			self->pdfDocumentFP = FPDF_LoadCustomDocument(&data, phrase);
 		}
-		else if ([documentURL host]) // HTTP NSURL
+		else if ([self->documentURL host]) // HTTP NSURL
 		{
-			dataSource = self; // UXReaderDocumentDataSource
+			self->dataSource = self; // UXReaderDocumentDataSource
 
 			__autoreleasing NSUUID *uuid = nil; // Data source UUID
 
-			[dataSource document:self UUID:&uuid]; UUID = [uuid copy];
+			[self->dataSource document:self UUID:&uuid]; self->UUID = [uuid copy];
 			
 			FPDF_FILEACCESS data; memset(&data, 0x00, sizeof(data));
 
-			size_t length = 0; [dataSource document:self dataLength:&length];
+			size_t length = 0; [self->dataSource document:self dataLength:&length];
 
 			data.m_FileLen = length; data.m_GetBlock = &GetDataBlock;
 
 			data.m_Param = (__bridge void *)self; // UXReaderDocument
 
-			pdfDocumentFP = FPDF_LoadCustomDocument(&data, phrase);
+			self->pdfDocumentFP = FPDF_LoadCustomDocument(&data, phrase);
 		}
 
-		if (pdfDocumentFP == nil) // Return NSError
+		if (self->pdfDocumentFP == nil) // Return NSError
 		{
 			const NSUInteger errorCode = FPDF_GetLastError();
 
@@ -587,7 +587,7 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 
 	[UXReaderFramework dispatch_sync_on_work_queue:
 	^{
-		if (NSValue *value = pageSizes[@(page)])
+		if (NSValue *value = self->pageSizes[@(page)])
 		{
 			pageSize = [value CGSizeValue]; // Cached
 		}
@@ -595,11 +595,11 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 		{
 			double width = 0.0; double height = 0.0; // Page size in points
 
-			if (FPDF_GetPageSizeByIndex(pdfDocumentFP, int(page), &width, &height) != FALSE)
+			if (FPDF_GetPageSizeByIndex(self->pdfDocumentFP, int(page), &width, &height) != FALSE)
 			{
 				pageSize = CGSizeMake(floor(width), floor(height)); // No fractional sizes
 
-				pageSizes[@(page)] = [NSValue valueWithCGSize:pageSize]; // Cache
+				self->pageSizes[@(page)] = [NSValue valueWithCGSize:pageSize]; // Cache
 			}
 		}
 	}];
@@ -617,13 +617,13 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 
 	[UXReaderFramework dispatch_sync_on_work_queue:
 	^{
-		documentPage = [documentPages objectForKey:@(page)]; // Use existing
+		documentPage = [self->documentPages objectForKey:@(page)]; // Use existing
 
 		if (documentPage == nil) // Create new UXReaderDocumentPage for requested page
 		{
 			if ((documentPage = [[UXReaderDocumentPage alloc] initWithDocument:self page:page]))
 			{
-				[documentPages setObject:documentPage forKey:@(page)];
+				[self->documentPages setObject:documentPage forKey:@(page)];
 			}
 		}
 	}];
@@ -643,15 +643,15 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 	{
 		[UXReaderFramework dispatch_sync_on_work_queue:
 		^{
-			label = pageLabels[@(page)]; // Get cached label
+			label = self->pageLabels[@(page)]; // Get cached label
 
 			if (label == nil) // Extract label for page - if one exists
 			{
-				if (int bytes = int(FPDF_GetPageLabel(pdfDocumentFP, int(page), nil, 0)))
+				if (int bytes = int(FPDF_GetPageLabel(self->pdfDocumentFP, int(page), nil, 0)))
 				{
 					if (NSMutableData *data = [NSMutableData dataWithLength:bytes]) // Buffer
 					{
-						FPDF_GetPageLabel(pdfDocumentFP, int(page), [data mutableBytes], bytes);
+						FPDF_GetPageLabel(self->pdfDocumentFP, int(page), [data mutableBytes], bytes);
 
 						const NSUInteger length = ((bytes / sizeof(unichar)) - 1); // No NUL
 
@@ -659,13 +659,13 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 
 						if ((label = [[NSString alloc] initWithCharacters:unicode length:length]))
 						{
-							pageLabels[@(page)] = label;
+							self->pageLabels[@(page)] = label;
 						}
 					}
 				}
 				else // No page labels
 				{
-					pageLabels = nil;
+					self->pageLabels = nil;
 				}
 			}
 		}];
@@ -705,7 +705,7 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 
 	[UXReaderFramework dispatch_sync_on_work_queue:
 	^{
-		if (information == nil) // Create documentation information dictionary
+		if (self->information == nil) // Create documentation information dictionary
 		{
 			NSMutableDictionary<NSString *, NSString *> *entries = [[NSMutableDictionary alloc] init];
 
@@ -719,7 +719,7 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 				}
 			}];
 
-			information = [entries copy];
+			self->information = [entries copy];
 		}
 	}];
 
@@ -759,13 +759,13 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
 		^{
-			[[searchCanceller lock] lock]; NSUInteger total = 0;
+			[[self->searchCanceller lock] lock]; NSUInteger total = 0;
 
 			dispatch_async(dispatch_get_main_queue(),
 			^{
-				if ([search respondsToSelector:@selector(document:didBeginDocumentSearch:)])
+				if ([self->search respondsToSelector:@selector(document:didBeginDocumentSearch:)])
 				{
-					[search document:self didBeginDocumentSearch:options];
+					[self->search document:self didBeginDocumentSearch:options];
 				}
 			});
 
@@ -777,15 +777,15 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 			{
 				[string getCharacters:reinterpret_cast<unichar *>([unicode mutableBytes]) range:range];
 
-				for (NSUInteger page = 0; page < pageCount; page++)
+				for (NSUInteger page = 0; page < self->pageCount; page++)
 				{
-					if ([searchCanceller isCancelled]) break;
+					if ([self->searchCanceller isCancelled]) break;
 
 					dispatch_async(dispatch_get_main_queue(),
 					^{
-						if ([search respondsToSelector:@selector(document:didBeginPageSearch:pages:)])
+						if ([self->search respondsToSelector:@selector(document:didBeginPageSearch:pages:)])
 						{
-							[search document:self didBeginPageSearch:page pages:pageCount];
+							[self->search document:self didBeginPageSearch:page pages:self->pageCount];
 						}
 					});
 
@@ -796,9 +796,9 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 
 					dispatch_async(dispatch_get_main_queue(),
 					^{
-						if ([search respondsToSelector:@selector(document:didFinishPageSearch:total:)])
+						if ([self->search respondsToSelector:@selector(document:didFinishPageSearch:total:)])
 						{
-							[search document:self didFinishPageSearch:page total:total];
+							[self->search document:self didFinishPageSearch:page total:total];
 						}
 					});
 				}
@@ -806,15 +806,15 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 
 			dispatch_async(dispatch_get_main_queue(),
 			^{
-				if ([search respondsToSelector:@selector(document:didFinishDocumentSearch:)])
+				if ([self->search respondsToSelector:@selector(document:didFinishDocumentSearch:)])
 				{
-					[search document:self didFinishDocumentSearch:total];
+					[self->search document:self didFinishDocumentSearch:total];
 				}
 			});
 
-			[[searchCanceller lock] unlock];
+			[[self->searchCanceller lock] unlock];
 
-			searchCanceller = nil;
+			self->searchCanceller = nil;
 		});
 	}
 }
@@ -878,9 +878,9 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 				{
 					dispatch_async(dispatch_get_main_queue(),
 					^{
-						if ([search respondsToSelector:@selector(document:searchDidMatch:page:)])
+						if ([self->search respondsToSelector:@selector(document:searchDidMatch:page:)])
 						{
-							[search document:self searchDidMatch:selections page:page];
+							[self->search document:self searchDidMatch:selections page:page];
 						}
 					});
 				}
@@ -948,7 +948,7 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 		^{
 			if ([canceller isCancelled] == YES) return; // Is cancelled
 
-			if (UIImage *thumb = [UXReaderThumbCache loadThumbForUUID:UUID page:page size:size])
+			if (UIImage *thumb = [UXReaderThumbCache loadThumbForUUID:self->UUID page:page size:size])
 			{
 				if ([canceller isCancelled] == NO) // Not cancelled
 				{
@@ -964,7 +964,7 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 				{
 					[documentPage thumbWithSize:size canceller:canceller completion:^(UIImage *thumb)
 					{
-						block(thumb); [UXReaderThumbCache saveThumb:thumb UUID:UUID page:page size:size];
+						block(thumb); [UXReaderThumbCache saveThumb:thumb UUID:self->UUID page:page size:size];
 					}];
 				}
 			}
@@ -1076,13 +1076,13 @@ static int GetDataBlock(void *object, unsigned long offset, unsigned char *buffe
 
 	[UXReaderFramework dispatch_sync_on_work_queue:
 	^{
-		if (outline == nil) // Extract outline from document
+		if (self->outline == nil) // Extract outline from document
 		{
 			NSMutableArray<UXReaderOutline *> *list = [[NSMutableArray alloc] init];
 
-			const FPDF_BOOKMARK first = FPDFBookmark_GetFirstChild(pdfDocumentFP, nil);
+			const FPDF_BOOKMARK first = FPDFBookmark_GetFirstChild(self->pdfDocumentFP, nil);
 
-			[self addOutline:first toList:list atLevel:0]; outline = [list copy];
+			[self addOutline:first toList:list atLevel:0]; self->outline = [list copy];
 		}
 	}];
 

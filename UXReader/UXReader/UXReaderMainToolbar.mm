@@ -2,7 +2,7 @@
 //	UXReaderMainToolbar.mm
 //	UXReader Framework v0.1
 //
-//	Copyright © 2017 Julius Oklamcak. All rights reserved.
+//	Copyright © 2017-2019 Julius Oklamcak. All rights reserved.
 //
 
 #import "UXReaderDocument.h"
@@ -342,7 +342,7 @@
 
 		[UIView animateWithDuration:ti delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^(void)
 		{
-			layoutConstraintY.constant = -self.bounds.size.height; [[self superview] layoutIfNeeded];
+			self->layoutConstraintY.constant = -self.bounds.size.height; [[self superview] layoutIfNeeded];
 		}
 		completion:^(BOOL finished)
 		{
@@ -363,7 +363,7 @@
 
 		[UIView animateWithDuration:ti delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^(void)
 		{
-			layoutConstraintY.constant += self.bounds.size.height; [[self superview] layoutIfNeeded];
+			self->layoutConstraintY.constant += self.bounds.size.height; [[self superview] layoutIfNeeded];
 		}
 		completion:^(BOOL finished)
 		{

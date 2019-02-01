@@ -1,5 +1,8 @@
-
 ## UXReader PDF Framework for iOS
+
+---
+*With the inclusion of PDFKit in iOS, this project is no longer supported or maintained. It is only here for historical reasons.
+---
 
 ### Introduction
 
@@ -36,8 +39,6 @@ getting started and the sample Reader project on how to use the UXReader framewo
 (class and method documentation is still on the todo list).
 
 ### Contact Info
-
-Website: [http://www.vfr.org/](http://www.vfr.org/)
 
 Email: joklamcak(at)gmail(dot)com
 

@@ -2,7 +2,7 @@
 //	UXReaderThumbCache.mm
 //	UXReader Framework v0.1
 //
-//	Copyright © 2017 Julius Oklamcak. All rights reserved.
+//	Copyright © 2017-2019 Julius Oklamcak. All rights reserved.
 //
 
 #import "UXReaderThumbCache.h"
@@ -203,7 +203,7 @@
 	^{
 		NSDate *now = [NSDate date]; NSArray<NSURLResourceKey> *keys = @[NSURLCreationDateKey];
 
-		NSArray<NSURL *> *URLs = [fileManager contentsOfDirectoryAtURL:thumbCacheURL includingPropertiesForKeys:keys options:0 error:nil];
+		NSArray<NSURL *> *URLs = [self->fileManager contentsOfDirectoryAtURL:self->thumbCacheURL includingPropertiesForKeys:keys options:0 error:nil];
 
 		[URLs enumerateObjectsUsingBlock:^(NSURL *URL, NSUInteger index, BOOL *stop)
 		{
@@ -213,7 +213,7 @@
 			{
 				const NSTimeInterval seconds = [now timeIntervalSinceDate:date];
 
-				if (seconds > age) [fileManager removeItemAtURL:URL error:&error];
+				if (seconds > age) [self->fileManager removeItemAtURL:URL error:&error];
 			}
 		}];
 	});

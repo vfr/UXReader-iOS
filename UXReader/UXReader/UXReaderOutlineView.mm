@@ -2,7 +2,7 @@
 //	UXReaderOutlineView.mm
 //	UXReader Framework v0.1
 //
-//	Copyright © 2017 Julius Oklamcak. All rights reserved.
+//	Copyright © 2017-2019 Julius Oklamcak. All rights reserved.
 //
 
 #import "UXReaderDocument.h"
@@ -178,9 +178,9 @@
 		^{
 			NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0]; // Dispatch hack
 
-			[outlineView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+			[self->outlineView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
 
-			dispatch_async(dispatch_get_main_queue(), ^{ updateCells = YES; [outlineView reloadData]; [outlineView flashScrollIndicators]; });
+			dispatch_async(dispatch_get_main_queue(), ^{ self->updateCells = YES; [self->outlineView reloadData]; [self->outlineView flashScrollIndicators]; });
 		});
 	}
 }

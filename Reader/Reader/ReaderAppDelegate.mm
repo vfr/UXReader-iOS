@@ -2,7 +2,7 @@
 //	ReaderAppDelegate.mm
 //	Reader v0.1
 //
-//	Copyright © 2017 Julius Oklamcak. All rights reserved.
+//	Copyright © 2017-2019 Julius Oklamcak. All rights reserved.
 //
 
 #import "ReaderAppDelegate.h"
@@ -75,7 +75,7 @@
 }
 */
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+- (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
 	//NSLog(@"%s '%@'", __FUNCTION__, url);
 

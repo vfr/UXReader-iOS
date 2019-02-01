@@ -2,7 +2,7 @@
 //	UXReaderSearchControl.mm
 //	UXReader Framework v0.1
 //
-//	Copyright © 2017 Julius Oklamcak. All rights reserved.
+//	Copyright © 2017-2019 Julius Oklamcak. All rights reserved.
 //
 
 #import "UXReaderSearchControl.h"
@@ -142,7 +142,7 @@
 
 		[UIView animateWithDuration:ti delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^(void)
 		{
-			[closeButton setAlpha:1.0]; [forwardButton setAlpha:1.0]; [reverseButton setAlpha:1.0];
+			[self->closeButton setAlpha:1.0]; [self->forwardButton setAlpha:1.0]; [self->reverseButton setAlpha:1.0];
 		}
 		completion:^(BOOL finished)
 		{
@@ -155,7 +155,7 @@
 
 		[UIView animateWithDuration:ti delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^(void)
 		{
-			[closeButton setAlpha:0.0]; [forwardButton setAlpha:0.0]; [reverseButton setAlpha:0.0];
+			[self->closeButton setAlpha:0.0]; [self->forwardButton setAlpha:0.0]; [self->reverseButton setAlpha:0.0];
 		}
 		completion:^(BOOL finished)
 		{

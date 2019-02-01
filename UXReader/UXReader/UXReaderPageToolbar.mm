@@ -2,7 +2,7 @@
 //	UXReaderPageToolbar.mm
 //	UXReader Framework v0.1
 //
-//	Copyright © 2017 Julius Oklamcak. All rights reserved.
+//	Copyright © 2017-2019 Julius Oklamcak. All rights reserved.
 //
 
 #import "UXReaderDocument.h"
@@ -229,11 +229,11 @@
 
 		[UIView animateWithDuration:ti delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^(void)
 		{
-			layoutConstraintY.constant = +self.bounds.size.height; [[self superview] layoutIfNeeded]; pageNumbers.alpha = 0.0;
+			self->layoutConstraintY.constant = +self.bounds.size.height; [[self superview] layoutIfNeeded]; self->pageNumbers.alpha = 0.0;
 		}
 		completion:^(BOOL finished)
 		{
-			pageNumbers.hidden = YES; self.hidden = YES;
+			self->pageNumbers.hidden = YES; self.hidden = YES;
 		}];
 	}
 }
@@ -250,7 +250,7 @@
 
 		[UIView animateWithDuration:ti delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^(void)
 		{
-			layoutConstraintY.constant -= self.bounds.size.height; [[self superview] layoutIfNeeded]; pageNumbers.alpha = 1.0;
+			self->layoutConstraintY.constant -= self.bounds.size.height; [[self superview] layoutIfNeeded]; self->pageNumbers.alpha = 1.0;
 		}
 		completion:^(BOOL finished)
 		{

@@ -2,7 +2,7 @@
 //	UXReaderViewController.mm
 //	UXReader Framework v0.1
 //
-//	Copyright © 2017 Julius Oklamcak. All rights reserved.
+//	Copyright © 2017-2019 Julius Oklamcak. All rights reserved.
 //
 
 #import "UXReaderDocument.h"
@@ -545,7 +545,7 @@ constexpr CGFloat minimumContentOffset = 0.0;
 		{
 			UIApplication *application = [UIApplication sharedApplication];
 
-			if ([application canOpenURL:URL]) [application openURL:URL];
+			if ([application canOpenURL:URL]) [application openURL:URL options:@{} completionHandler:nil];
 		}
 		else // Log URI error
 		{
@@ -558,7 +558,7 @@ constexpr CGFloat minimumContentOffset = 0.0;
 		{
 			UIApplication *application = [UIApplication sharedApplication];
 
-			if ([application canOpenURL:URL]) [application openURL:URL];
+			if ([application canOpenURL:URL]) [application openURL:URL options:@{} completionHandler:nil];
 		}
 		else // Log URI error
 		{
@@ -650,7 +650,7 @@ constexpr CGFloat minimumContentOffset = 0.0;
 
 		[UIView animateWithDuration:ti delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^(void)
 		{
-			currentStatusBarState = hidden; [self setNeedsStatusBarAppearanceUpdate];
+			self->currentStatusBarState = hidden; [self setNeedsStatusBarAppearanceUpdate];
 		}
 		completion:^(BOOL finished)
 		{
@@ -1115,13 +1115,13 @@ constexpr CGFloat minimumContentOffset = 0.0;
 	{
 		const NSUInteger page = [key unsignedIntegerValue]; // Page number
 
-		CGRect viewRect = CGRectZero; viewRect.size = mainScrollView.bounds.size;
+		CGRect viewRect = CGRectZero; viewRect.size = self->mainScrollView.bounds.size;
 
-		const NSUInteger flip = (showRTL ? (maximumPage - page) : page);
+		const NSUInteger flip = (self->showRTL ? (self->maximumPage - page) : page);
 
 		viewRect.origin.x = (viewRect.size.width * flip); // Update X
 
-		contentView.frame = CGRectInset(viewRect, scrollViewOutset, 0.0);
+		contentView.frame = CGRectInset(viewRect, self->scrollViewOutset, 0.0);
 	}];
 
 	const NSUInteger flip = (showRTL ? (maximumPage - currentPage) : currentPage);
@@ -1374,13 +1374,13 @@ constexpr CGFloat minimumContentOffset = 0.0;
 	{
 		const NSUInteger page = [key unsignedIntegerValue]; // Page number
 
-		CGRect viewRect = CGRectZero; viewRect.size = mainScrollView.bounds.size;
+		CGRect viewRect = CGRectZero; viewRect.size = self->mainScrollView.bounds.size;
 
-		const NSUInteger flip = (showRTL ? (maximumPage - page) : page);
+		const NSUInteger flip = (self->showRTL ? (self->maximumPage - page) : page);
 
 		viewRect.origin.y = (viewRect.size.height * flip); // Update Y
 
-		contentView.frame = CGRectInset(viewRect, 0.0, scrollViewOutset);
+		contentView.frame = CGRectInset(viewRect, 0.0, self->scrollViewOutset);
 	}];
 
 	const NSUInteger flip = (showRTL ? (maximumPage - currentPage) : currentPage);
@@ -1633,13 +1633,13 @@ constexpr CGFloat minimumContentOffset = 0.0;
 	{
 		const NSUInteger pair = [key unsignedIntegerValue]; // Page pair
 
-		CGRect viewRect = CGRectZero; viewRect.size = mainScrollView.bounds.size;
+		CGRect viewRect = CGRectZero; viewRect.size = self->mainScrollView.bounds.size;
 
-		const NSUInteger flip = (showRTL ? (maximumKey - pair) : pair);
+		const NSUInteger flip = (self->showRTL ? (self->maximumKey - pair) : pair);
 
 		viewRect.origin.x = (viewRect.size.width * flip); // Update X
 
-		contentView.frame = CGRectInset(viewRect, scrollViewOutset, 0.0);
+		contentView.frame = CGRectInset(viewRect, self->scrollViewOutset, 0.0);
 	}];
 
 	const NSUInteger flip = (showRTL ? (maximumKey - currentKey) : currentKey);
@@ -1911,13 +1911,13 @@ constexpr CGFloat minimumContentOffset = 0.0;
 	{
 		const NSUInteger pair = [key unsignedIntegerValue]; // Page pair
 
-		CGRect viewRect = CGRectZero; viewRect.size = mainScrollView.bounds.size;
+		CGRect viewRect = CGRectZero; viewRect.size = self->mainScrollView.bounds.size;
 
-		const NSUInteger flip = (showRTL ? (maximumKey - pair) : pair);
+		const NSUInteger flip = (self->showRTL ? (self->maximumKey - pair) : pair);
 
 		viewRect.origin.y = (viewRect.size.height * flip); // Update Y
 
-		contentView.frame = CGRectInset(viewRect, 0.0, scrollViewOutset);
+		contentView.frame = CGRectInset(viewRect, 0.0, self->scrollViewOutset);
 	}];
 
 	const NSUInteger flip = (showRTL ? (maximumKey - currentKey) : currentKey);

@@ -2,7 +2,7 @@
 //	ReaderViewController.mm
 //	Reader v0.1
 //
-//	Copyright © 2017 Julius Oklamcak. All rights reserved.
+//	Copyright © 2017-2019 Julius Oklamcak. All rights reserved.
 //
 
 #import "ReaderViewController.h"
@@ -737,9 +737,9 @@
 		{
 			[self dismissViewControllerAnimated:YES completion:
 			^{
-				NSIndexPath *selected = [pdfTableView indexPathForSelectedRow];
+				NSIndexPath *selected = [self->pdfTableView indexPathForSelectedRow];
 
-				[pdfTableView deselectRowAtIndexPath:selected animated:NO];
+				[self->pdfTableView deselectRowAtIndexPath:selected animated:NO];
 			}];
 		}
 		else // Dismiss child UIViewController

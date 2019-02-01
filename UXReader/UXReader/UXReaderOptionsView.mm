@@ -2,7 +2,7 @@
 //	UXReaderOptionsView.mm
 //	UXReader Framework v0.1
 //
-//	Copyright © 2017 Julius Oklamcak. All rights reserved.
+//	Copyright © 2017-2019 Julius Oklamcak. All rights reserved.
 //
 
 #import "UXReaderDocument.h"
@@ -144,9 +144,9 @@
 		^{
 			NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0]; // Dispatch hack
 
-			[optionsView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+			[self->optionsView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 
-			[optionsView flashScrollIndicators];
+			[self->optionsView flashScrollIndicators];
 		});
 	}
 }

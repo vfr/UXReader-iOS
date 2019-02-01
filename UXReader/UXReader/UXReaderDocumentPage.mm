@@ -2,7 +2,7 @@
 //	UXReaderDocumentPage.mm
 //	UXReader Framework v0.1
 //
-//	Copyright © 2017 Julius Oklamcak. All rights reserved.
+//	Copyright © 2017-2019 Julius Oklamcak. All rights reserved.
 //
 
 #import "UXReaderDocument.h"
@@ -84,9 +84,9 @@
 
 	[UXReaderFramework dispatch_sync_on_work_queue:
 	^{
-		if (textPageFP != nil) { FPDFText_ClosePage(textPageFP); textPageFP = nil; };
+		if (self->textPageFP != nil) { FPDFText_ClosePage(self->textPageFP); self->textPageFP = nil; };
 
-		if (pdfPageFP != nil) { FPDF_ClosePage(pdfPageFP); pdfPageFP = nil; }
+		if (self->pdfPageFP != nil) { FPDF_ClosePage(self->pdfPageFP); self->pdfPageFP = nil; }
 	}];
 }
 
@@ -96,13 +96,13 @@
 
 	[UXReaderFramework dispatch_sync_on_work_queue:
 	^{
-		if ((pdfPageFP = FPDF_LoadPage(pdfDocumentFP, int(page))))
+		if ((self->pdfPageFP = FPDF_LoadPage(self->pdfDocumentFP, int(self->page))))
 		{
-			rotation = FPDFPage_GetRotation(pdfPageFP); // Rotation
+			self->rotation = FPDFPage_GetRotation(self->pdfPageFP); // Rotation
 
-			if (pdfDocumentCG != nil) // Native rendering mode enabled
+			if (self->pdfDocumentCG != nil) // Native rendering mode enabled
 			{
-				pdfPageCG = CGPDFDocumentGetPage(pdfDocumentCG, (page+1));
+				self->pdfPageCG = CGPDFDocumentGetPage(self->pdfDocumentCG, (self->page + 1));
 			}
 		}
 	}];
@@ -146,9 +146,9 @@
 
 	[UXReaderFramework dispatch_sync_on_work_queue:
 	^{
-		if (textPageFP == nil) // Load text on demand
+		if (self->textPageFP == nil) // Load text on demand
 		{
-			textPageFP = FPDFText_LoadPage(pdfPageFP);
+			self->textPageFP = FPDFText_LoadPage(self->pdfPageFP);
 		}
 	}];
 
@@ -386,7 +386,7 @@
 
 			const CGRect device = CGContextConvertRectToDeviceSpace(context, rect);
 
-			const CGAffineTransform m = {1.0, 0.0, 0.0, -1.0, 0.0, pageSize.height};
+			const CGAffineTransform m = {1.0, 0.0, 0.0, -1.0, 0.0, self->pageSize.height};
 
 			const CGRect flip = CGRectApplyAffineTransform(rect, m); // Flip Y
 
@@ -416,7 +416,7 @@
 
 					const FS_RECTF clip = {0.0, 0.0, float(bw), float(bh)}; // Clip to bitmap dimensions
 
-					FPDF_RenderPageBitmapWithMatrix(pdfBitmap, pdfPageFP, &matrix, &clip, options);
+					FPDF_RenderPageBitmapWithMatrix(pdfBitmap, self->pdfPageFP, &matrix, &clip, options);
 
 					if (CGImageRef image = CGBitmapContextCreateImage(bmc))
 					{
@@ -535,9 +535,9 @@
 		^{
 			if ([canceller isCancelled] == YES) return; // Is cancelled
 
-			const size_t tw = size.width; const CGFloat xs = (tw / pageSize.width);
+			const size_t tw = size.width; const CGFloat xs = (tw / self->pageSize.width);
 
-			const size_t th = size.height; const CGFloat ys = (th / pageSize.height);
+			const size_t th = size.height; const CGFloat ys = (th / self->pageSize.height);
 
 			const CGColorSpaceRef rgb = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 
@@ -559,7 +559,7 @@
 
 					FS_RECTF clip = {0.0, 0.0, float(bw), float(bh)}; // Clip to bitmap
 
-					FPDF_RenderPageBitmapWithMatrix(pdfBitmap, pdfPageFP, &matrix, &clip, options);
+					FPDF_RenderPageBitmapWithMatrix(pdfBitmap, self->pdfPageFP, &matrix, &clip, options);
 
 					if (CGImageRef image = CGBitmapContextCreateImage(bmc))
 					{
@@ -606,9 +606,9 @@
 
 				CGContextSetRGBFillColor(bmc, 1.0, 1.0, 1.0, 1.0); CGContextFillRect(bmc, rect);
 
-				CGContextConcatCTM(bmc, CGPDFPageGetDrawingTransform(pdfPageCG, kCGPDFCropBox, rect, 0, true));
+				CGContextConcatCTM(bmc, CGPDFPageGetDrawingTransform(self->pdfPageCG, kCGPDFCropBox, rect, 0, true));
 
-				CGContextDrawPDFPage(bmc, pdfPageCG);
+				CGContextDrawPDFPage(bmc, self->pdfPageCG);
 
 				if (CGImageRef image = CGBitmapContextCreateImage(bmc))
 				{
@@ -825,13 +825,13 @@
 
 	[UXReaderFramework dispatch_sync_on_work_queue:
 	^{
-		if (pageLinks == nil) // Extract
+		if (self->pageLinks == nil) // Extract
 		{
 			int entry = 0; FPDF_LINK link = nil;
 
 			NSMutableArray<UXReaderAction *> *links = [[NSMutableArray alloc] init];
 
-			while (FPDFLink_Enumerate(pdfPageFP, &entry, &link)) // Enumerate
+			while (FPDFLink_Enumerate(self->pdfPageFP, &entry, &link)) // Enumerate
 			{
 				if (UXReaderAction *item = [self actionForLink:link])
 				{
@@ -841,7 +841,7 @@
 
 			extracted = ([links count] > 0);
 
-			pageLinks = [links copy];
+			self->pageLinks = [links copy];
 		}
 	}];
 
@@ -856,18 +856,18 @@
 
 	[UXReaderFramework dispatch_sync_on_work_queue:
 	^{
-		if (pageLinks == nil) // Get action for point
+		if (self->pageLinks == nil) // Get action for point
 		{
 			const CGPoint pt = [self convertToPageFromViewPoint:point];
 
-			if (FPDF_LINK link = FPDFLink_GetLinkAtPoint(pdfPageFP, pt.x, pt.y))
+			if (FPDF_LINK link = FPDFLink_GetLinkAtPoint(self->pdfPageFP, pt.x, pt.y))
 			{
 				action = [self actionForLink:link];
 			}
 		}
 		else // Enumerate through links list
 		{
-			for (UXReaderAction *pageLink in pageLinks)
+			for (UXReaderAction *pageLink in self->pageLinks)
 			{
 				if ([pageLink containsPoint:point] == YES)
 				{
@@ -888,7 +888,7 @@
 
 	[UXReaderFramework dispatch_sync_on_work_queue:
 	^{
-		if (pageURLs == nil) // Extract any text-based URLs
+		if (self->pageURLs == nil) // Extract any text-based URLs
 		{
 			NSMutableArray<UXReaderAction *> *links = [[NSMutableArray alloc] init];
 
@@ -943,7 +943,7 @@
 
 			extracted = ([links count] > 0);
 
-			pageURLs = [links copy];
+			self->pageURLs = [links copy];
 		}
 	}];
 
@@ -958,14 +958,14 @@
 
 	[UXReaderFramework dispatch_sync_on_work_queue:
 	^{
-		if (pageURLs == nil) // Extract
+		if (self->pageURLs == nil) // Extract
 		{
 			[self extractPageURLs];
 		}
 
-		if ([pageURLs count] > 0) // Test point
+		if ([self->pageURLs count] > 0) // Test point
 		{
-			for (UXReaderAction *pageURL in pageURLs)
+			for (UXReaderAction *pageURL in self->pageURLs)
 			{
 				if ([pageURL containsPoint:point] == YES)
 				{

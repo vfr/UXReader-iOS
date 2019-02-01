@@ -2,7 +2,7 @@
 //	ReaderUpperToolbar.mm
 //	Reader v0.1
 //
-//	Copyright © 2017 Julius Oklamcak. All rights reserved.
+//	Copyright © 2017-2019 Julius Oklamcak. All rights reserved.
 //
 
 #import "ReaderUpperToolbar.h"
@@ -246,9 +246,9 @@
 
 	[UIView animateWithDuration:ti delay:0.0 options:options animations:^(void)
 	{
-		[view removeConstraint:oldConstraint]; [view addConstraint:searchConstraintX]; [view layoutIfNeeded];
+		[view removeConstraint:oldConstraint]; [view addConstraint:self->searchConstraintX]; [view layoutIfNeeded];
 
-		const CGFloat a = (searchVisible ? 0.0 : 1.0); [titleLabel setAlpha:a];
+		const CGFloat a = (self->searchVisible ? 0.0 : 1.0); [self->titleLabel setAlpha:a];
 	}
 	completion:^(BOOL finished)
 	{

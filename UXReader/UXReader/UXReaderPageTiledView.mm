@@ -2,7 +2,7 @@
 //	UXReaderPageTiledView.mm
 //	UXReader Framework v0.1
 //
-//	Copyright © 2017 Julius Oklamcak. All rights reserved.
+//	Copyright © 2017-2019 Julius Oklamcak. All rights reserved.
 //
 
 #import "UXReaderDocument.h"
@@ -99,9 +99,9 @@
 
 	[UXReaderFramework dispatch_async_on_work_queue:
 	^{
-		documentPage = [documentx documentPage:page];
+		self->documentPage = [documentx documentPage:page];
 
-		if (documentPage != nil) // Redraw view
+		if (self->documentPage != nil) // Redraw view
 		{
 			dispatch_async(dispatch_get_main_queue(),
 			^{

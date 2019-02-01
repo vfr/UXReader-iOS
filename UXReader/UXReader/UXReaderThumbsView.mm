@@ -2,7 +2,7 @@
 //	UXReaderThumbsView.mm
 //	UXReader Framework v0.1
 //
-//	Copyright © 2017 Julius Oklamcak. All rights reserved.
+//	Copyright © 2017-2019 Julius Oklamcak. All rights reserved.
 //
 
 #import "UXReaderDocument.h"
@@ -134,9 +134,9 @@ static NSString *const kUXReaderThumbCell = @"UXReaderThumbCell";
 		^{
 			NSIndexPath *indexPath = [NSIndexPath indexPathForItem:page inSection:0]; // Dispatch hack
 
-			[thumbsView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+			[self->thumbsView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
 
-			dispatch_async(dispatch_get_main_queue(), ^{ updateCells = YES; [thumbsView reloadData]; [thumbsView flashScrollIndicators]; });
+			dispatch_async(dispatch_get_main_queue(), ^{ self->updateCells = YES; [self->thumbsView reloadData]; [self->thumbsView flashScrollIndicators]; });
 		});
 	}
 }
@@ -220,9 +220,9 @@ static NSString *const kUXReaderThumbCell = @"UXReaderThumbCell";
 				{
 					[imageView removeFromSuperview];
 
-					if ([delegate respondsToSelector:@selector(thumbsView:dismiss:)])
+					if ([self->delegate respondsToSelector:@selector(thumbsView:dismiss:)])
 					{
-						[delegate thumbsView:self dismiss:nil];
+						[self->delegate thumbsView:self dismiss:nil];
 					}
 				}];
 			}
