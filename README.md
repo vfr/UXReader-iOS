@@ -1,7 +1,7 @@
 ## UXReader PDF Framework for iOS
 
 ---
-*With the inclusion of PDFKit in iOS, this project is no longer supported or maintained. It is only here for historical reasons.
+*With the inclusion of PDFKit in iOS, this project is no longer supported or maintained. It is only here for historical reasons.*
 ---
 
 ### Introduction
