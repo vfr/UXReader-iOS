@@ -1,0 +1,6 @@
+framework module UXReader {
+  umbrella header "UXReader.h"
+
+  export *
+  module * { export * }
+}
